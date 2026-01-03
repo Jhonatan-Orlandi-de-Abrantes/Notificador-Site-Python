@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste Notificação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15%;
+        }
+
+        input, button {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            cursor: pointer;
+            background: #00bcd4;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <input id="title" placeholder="Título da notificação">
+    <input id="message" placeholder="Mensagem da notificação">
+    <button onclick="sendNotification()">Enviar Notificação</button>
+
+    <script>
+        function sendNotification() {
+            const title = document.getElementById("title").value;
+            const message = document.getElementById("message").value;
+
+            fetch("http://localhost:5000/notify", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title, message })
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.error(err));
+        }
+    </script>
+
+</body>
+</html>
